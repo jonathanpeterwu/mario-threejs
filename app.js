@@ -6,54 +6,57 @@ function initialize() {
   world.setCameraPosition();
   world.setLighting();
   var cube = new CubeFactory().createCube("blue");
-  world.setScene( cube );
 
-  world.render( cube );
+  console.log( cube.mesh )
+  cube.positionSelf()
+  world.setScene( cube.mesh );
+  world.render( cube.mesh );
 }
 
 
 World = function(){
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 10 );
-  var renderer = new THREE.WebGLRenderer();
+  this.scene = new THREE.Scene();
+  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 10 );
+  this.renderer = new THREE.WebGLRenderer();
+}
 
-  return {
-    setRender: function() {
-      renderer.setSize( window.innerWidth, window.innerHeight );
-      document.body.appendChild( renderer.domElement );
-    },
+World.prototype = {
+  setRender: function() {
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( this.renderer.domElement );
+  },
 
-    render: function( cube ) {
-      var self = this
-      requestAnimationFrame( function(){
-       self.render( cube )
-      });
+  render: function( mesh ) {
+    var self = this
+    requestAnimationFrame( function(){
+     self.render( mesh )
+   });
 
-      cube.rotation.x += 0.1;
-      renderer.render( scene, camera );
-    },
+    mesh.rotation.x += 0.01;
+    this.renderer.render( this.scene, this.camera );
+  },
 
-    setCameraPosition: function(){
-      camera.position.z = 3;
-      camera.position.x = 3;
-      camera.position.y = 1;
-    },
+  setCameraPosition: function(){
+    this.camera.position.z = 3;
+    this.camera.position.x = 3;
+    this.camera.position.y = 1;
+  },
 
-    setLighting: function() {
-      var directionalLight = new THREE.DirectionalLight(0xFFFFFF);
-      directionalLight.position.set( 3,1,10 ).normalize();
-      scene.add( directionalLight );
-    },
+  setLighting: function() {
+    var directionalLight = new THREE.DirectionalLight(0xFFFFFF);
+    directionalLight.position.set( 3,1,10 ).normalize();
+    this.scene.add( directionalLight );
+  },
 
-    setScene: function( cube ) {
-      scene.add( cube );
-    }
+  setScene: function( mesh ) {
+    this.scene.add( mesh );
   }
 }
 
 function Cube( color ) {
   this.geometry = new THREE.CubeGeometry(1,1,1);
   this.material = new THREE.MeshLambertMaterial( {color: color} );
+  this.mesh = new THREE.Mesh(this.geometry, this.material)
 }
 
 function CubeFactory() {
@@ -64,10 +67,15 @@ CubeFactory.prototype = {
   createCube: function(color) {
     var cube = new Cube(color);
     this.cubes.push(cube);
-    return new THREE.Mesh(cube.geometry, cube.material)
+    return cube
   }
-};
+}
 
+Cube.prototype = {
+  positionSelf: function() {
+    console.log(this.mesh.position.x);
+  }
+}
 
 
 
