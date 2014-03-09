@@ -9,13 +9,7 @@ function initialize() {
   var marioFactory = new CubeFactory()
   var cube = marioFactory.createCube("blue")
   var cube2 = marioFactory.createCube("green")
-
-  cube.positionSelf()
-  for (var i=0; i<marioFactory.cubes.length; i++)
-  {
-    world.setScene(marioFactory.cubes[i].mesh);
-    world.render(marioFactory.cubes[i].mesh);
-  }
+  cubePlacer(marioFactory.cubes, world)
 
 }
 
@@ -78,14 +72,22 @@ CubeFactory.prototype = {
 }
 
 Cube.prototype = {
-  positionSelf: function() {
-    console.log(this.mesh.position.x);
+  positionSelf: function(x, y, z) {
     //+1 makes it move by a lot, need to manage the camera.z attribute
-    this.mesh.position.x = 2
+    this.mesh.position.x = x
+    this.mesh.position.y = y
+    this.mesh.position.z = z
   }
 }
 
-
+function cubePlacer (cubes, world){
+  for (var i=0; i<cubes.length; i++)
+  {
+    world.setScene(cubes[i].mesh);
+    world.render(cubes[i].mesh);
+    cubes[i].positionSelf(i, i, i);
+  }
+}
 
 // Cube.prototype = {
 //   createCube: function() {
