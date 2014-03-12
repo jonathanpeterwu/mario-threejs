@@ -5,11 +5,17 @@ function initialize() {
   world.setRender();
   world.setCameraPosition();
   world.setLighting();
+  world.setControls();
 
   var marioFactory = new CubeFactory()
-  var cube = marioFactory.createCube("blue")
-  var cube2 = marioFactory.createCube("green")
+
+  for (var i=0 ; i<100 ; i++)
+  {
+    marioFactory.createCube("red")
+  }
+
   cubePlacer(marioFactory.cubes, world)
+
 
 }
 
@@ -18,6 +24,7 @@ World = function(){
   this.scene = new THREE.Scene();
   this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 10 );
   this.renderer = new THREE.WebGLRenderer();
+  this.controls = new THREE.OrbitControls( this.camera );
 }
 
 World.prototype = {
@@ -32,14 +39,14 @@ World.prototype = {
      self.render( mesh )
    });
 
-    mesh.rotation.x += 0.01;
+    // mesh.rotation.x += 0.01;
     this.renderer.render( this.scene, this.camera );
   },
 
   setCameraPosition: function(){
-    this.camera.position.z = 5;
+    this.camera.position.z = 9;
     this.camera.position.x = 4;
-    this.camera.position.y = 1;
+    this.camera.position.y = 2;
   },
 
   setLighting: function() {
@@ -50,7 +57,11 @@ World.prototype = {
 
   setScene: function( mesh ) {
     this.scene.add( mesh );
-  }
+  },
+
+  setControls: function(){
+    this.controls.addEventListener( 'change', render );
+  },
 }
 
 function Cube( color ) {
@@ -85,7 +96,7 @@ function cubePlacer (cubes, world){
   {
     world.setScene(cubes[i].mesh);
     world.render(cubes[i].mesh);
-    cubes[i].positionSelf(i, i, i);
+    cubes[i].positionSelf( i, i ,i );
   }
 }
 
