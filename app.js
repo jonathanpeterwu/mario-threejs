@@ -1,3 +1,17 @@
+var mario = {
+  cubeAttributes: [
+    {
+      color: "red",
+      position:
+              {
+                x:1,
+                y:1,
+                z:1
+              }
+    }
+  ]
+}
+
 window.addEventListener( 'load', initialize, false )
 
 function initialize() {
@@ -8,9 +22,8 @@ function initialize() {
 
   var marioFactory = new CubeFactory()
 
-  for (var i=0 ; i<10 ; i++)
-  {
-    marioFactory.createCube("red")
+  for ( var i=0; i<mario.cubeAttributes.length; i++ ){
+    marioFactory.createCube( mario.cubeAttributes[ i ].color )
   }
 
   cubePlacer(marioFactory.cubes, world)
@@ -38,7 +51,7 @@ World.prototype = {
      self.render( mesh )
    });
 
-    // mesh.rotation.x += 0.01;
+    mesh.rotation.x += 0.01;
     this.renderer.render( this.scene, this.camera );
   },
 
