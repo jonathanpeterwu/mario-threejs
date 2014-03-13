@@ -23,7 +23,7 @@ function initialize() {
   var marioFactory = new CubeFactory()
 
   for ( var i=0; i<mario.cubeAttributes.length; i++ ){
-    marioFactory.createCube( mario.cubeAttributes[ i ].color )
+    marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
   }
 
   cubePlacer(marioFactory.cubes, world)
@@ -72,10 +72,13 @@ World.prototype = {
   }
 }
 
-function Cube( color ) {
+function Cube( color, position ) {
   this.geometry = new THREE.CubeGeometry(1,1,1);
   this.material = new THREE.MeshLambertMaterial( {color: color} );
   this.mesh = new THREE.Mesh(this.geometry, this.material)
+  this.mesh.position.x = position.x
+  this.mesh.position.y = position.y
+  this.mesh.position.z = position.z
 }
 
 function CubeFactory() {
@@ -83,28 +86,17 @@ function CubeFactory() {
 }
 
 CubeFactory.prototype = {
-  createCube: function(color) {
-    var cube = new Cube(color);
-    this.cubes.push(cube);
+  createCube: function( color, position ){
+    var cube = new Cube( color, position );
+    this.cubes.push( cube );
     return cube
   }
 }
 
-Cube.prototype = {
-  positionSelf: function(x, y, z) {
-    //+1 makes it move by a lot, need to manage the camera.z attribute
-    this.mesh.position.x = x
-    this.mesh.position.y = y
-    this.mesh.position.z = z
-  }
-}
-
 function cubePlacer (cubes, world){
-  for (var i=0; i<cubes.length; i++)
-  {
+  for ( var i=0; i<cubes.length; i++ ){
     world.setScene(cubes[i].mesh);
     world.render(cubes[i].mesh);
-    cubes[i].positionSelf( Math.random() *10, Math.random() *10, Math.random() *10);
   }
 }
 
