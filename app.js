@@ -8,14 +8,11 @@ function initialize() {
 
   var marioFactory = new CubeFactory()
 
-  for (var i=0 ; i<10 ; i++)
-  {
+  for ( var i=0 ; i<10 ; i++ ) {
     marioFactory.createCube("red")
   }
 
   cubePlacer(marioFactory.cubes, world)
-
-
 }
 
 
@@ -70,15 +67,15 @@ function CubeFactory() {
 }
 
 CubeFactory.prototype = {
-  createCube: function(color) {
-    var cube = new Cube(color);
-    this.cubes.push(cube);
+  createCube: function( color ) {
+    var cube = new Cube( color );
+    this.cubes.push( cube );
     return cube
   }
 }
 
 Cube.prototype = {
-  positionSelf: function(x, y, z) {
+  positionSelf: function( x, y, z ) {
     //+1 makes it move by a lot, need to manage the camera.z attribute
     this.mesh.position.x = x
     this.mesh.position.y = y
@@ -86,12 +83,11 @@ Cube.prototype = {
   }
 }
 
-function cubePlacer (cubes, world){
-  for (var i=0; i<cubes.length; i++)
-  {
-    world.setScene(cubes[i].mesh);
-    world.render(cubes[i].mesh);
-    cubes[i].positionSelf( Math.random() *10, Math.random() *10, Math.random() *10);
+function cubePlacer ( cubes, world ) {
+  for ( var i=0; var cubeLength = cubes.length; i < cubeLength; i++ ) {
+    world.setScene( cubes[ i ].mesh );
+    world.render( cubes[ i ].mesh );
+    cubes[ i ].positionSelf( Math.random() *10, Math.random() *10, Math.random() *10 ) ;
   }
 }
 
