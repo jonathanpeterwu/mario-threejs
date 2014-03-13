@@ -7,17 +7,23 @@ function initialize() {
   world.setLighting();
 
   var marioFactory = new CubeFactory()
-  var cube = marioFactory.createCube("blue")
-  var cube2 = marioFactory.createCube("green")
+
+  for (var i=0 ; i<10 ; i++)
+  {
+    marioFactory.createCube("red")
+  }
+
   cubePlacer(marioFactory.cubes, world)
+
 
 }
 
 
 World = function(){
   this.scene = new THREE.Scene();
-  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 10 );
+  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 30 );
   this.renderer = new THREE.WebGLRenderer();
+  this.controls = new THREE.OrbitControls( this.camera );
 }
 
 World.prototype = {
@@ -32,14 +38,14 @@ World.prototype = {
      self.render( mesh )
    });
 
-    mesh.rotation.x += 0.01;
+    // mesh.rotation.x += 0.01;
     this.renderer.render( this.scene, this.camera );
   },
 
   setCameraPosition: function(){
-    this.camera.position.z = 5;
+    this.camera.position.z = 12;
     this.camera.position.x = 4;
-    this.camera.position.y = 1;
+    this.camera.position.y = 3;
   },
 
   setLighting: function() {
@@ -85,15 +91,7 @@ function cubePlacer (cubes, world){
   {
     world.setScene(cubes[i].mesh);
     world.render(cubes[i].mesh);
-    cubes[i].positionSelf(i, i, i);
+    cubes[i].positionSelf( Math.random() *10, Math.random() *10, Math.random() *10);
   }
 }
 
-// Cube.prototype = {
-//   createCube: function() {
-//     console.log(this.geometry);
-//     console.log(this.material);
-//     var cube = new THREE.Mesh( this.geometry, this.material );
-//     return cube;
-//   }
-// }
