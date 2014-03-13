@@ -9,7 +9,7 @@ function initialize() {
 
   var marioFactory = new CubeFactory()
 
-  for (var i=0 ; i<400 ; i++)
+  for (var i=0 ; i<10 ; i++)
   {
     marioFactory.createCube("red")
   }
@@ -22,7 +22,7 @@ function initialize() {
 
 World = function(){
   this.scene = new THREE.Scene();
-  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 10 );
+  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 30 );
   this.renderer = new THREE.WebGLRenderer();
   this.controls = new THREE.OrbitControls( this.camera );
 }
@@ -96,7 +96,7 @@ function cubePlacer (cubes, world){
   {
     world.setScene(cubes[i].mesh);
     world.render(cubes[i].mesh);
-    cubes[i].positionSelf( Math.random() *20, Math.random() *20, Math.random() *20);
+    cubes[i].positionSelf( Math.random() *10, Math.random() *10, Math.random() *10);
   }
 }
 
