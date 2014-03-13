@@ -1,14 +1,132 @@
 var mario = {
   cubeAttributes: [
     {
-      color: "red",
+      color: "#614126",
+      position:
+              {
+                x:0,
+                y:0,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:1,
+                y:0,
+                z:0.01
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:2,
+                y:0,
+                z:0
+              }
+    },
+        {
+      color: "#614126",
+      position:
+              {
+                x:3,
+                y:0,
+                z:0.01
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:8,
+                y:0,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:9,
+                y:0,
+                z:0.01
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:10,
+                y:0,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:11,
+                y:0,
+                z:0.01
+              }
+    },
+
+    {
+      color: "#614126",
       position:
               {
                 x:1,
                 y:1,
-                z:1
+                z:0
               }
-    }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:2,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:3,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:8,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:9,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:10,
+                y:1,
+                z:0
+              }
+    },
   ]
 }
 
@@ -51,7 +169,7 @@ World.prototype = {
      self.render( mesh )
    });
 
-    mesh.rotation.x += 0.01;
+    // mesh.rotation.x += 0.01;
     this.renderer.render( this.scene, this.camera );
   },
 
@@ -62,9 +180,11 @@ World.prototype = {
   },
 
   setLighting: function() {
-    var directionalLight = new THREE.DirectionalLight(0xFFFFFF);
-    directionalLight.position.set( 3,1,10 ).normalize();
-    this.scene.add( directionalLight );
+    var frontLight = new THREE.DirectionalLight( 0xFFFFFF );
+    frontLight.position.set( 3, 1, 10 ).normalize();
+    var ambientLight = new THREE.AmbientLight( 0x555555 );
+    this.scene.add( frontLight );
+    // this.scene.add( ambientLight );
   },
 
   setScene: function( mesh ) {
@@ -73,9 +193,9 @@ World.prototype = {
 }
 
 function Cube( color, position ) {
-  this.geometry = new THREE.CubeGeometry(1,1,1);
+  this.geometry = new THREE.CubeGeometry( 1, 1, 1 );
   this.material = new THREE.MeshLambertMaterial( {color: color} );
-  this.mesh = new THREE.Mesh(this.geometry, this.material)
+  this.mesh = new THREE.Mesh( this.geometry, this.material )
   this.mesh.position.x = position.x
   this.mesh.position.y = position.y
   this.mesh.position.z = position.z
