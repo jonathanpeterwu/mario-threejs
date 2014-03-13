@@ -5,7 +5,6 @@ function initialize() {
   world.setRender();
   world.setCameraPosition();
   world.setLighting();
-  world.setControls();
 
   var marioFactory = new CubeFactory()
 
@@ -57,11 +56,7 @@ World.prototype = {
 
   setScene: function( mesh ) {
     this.scene.add( mesh );
-  },
-
-  setControls: function(){
-    // this.controls.addEventListener( 'change', render );
-  },
+  }
 }
 
 function Cube( color ) {
