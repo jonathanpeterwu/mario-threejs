@@ -9,7 +9,7 @@ function initialize() {
 
   var marioFactory = new CubeFactory()
 
-  for (var i=0 ; i<100 ; i++)
+  for (var i=0 ; i<400 ; i++)
   {
     marioFactory.createCube("red")
   }
@@ -44,9 +44,9 @@ World.prototype = {
   },
 
   setCameraPosition: function(){
-    this.camera.position.z = 9;
+    this.camera.position.z = 12;
     this.camera.position.x = 4;
-    this.camera.position.y = 2;
+    this.camera.position.y = 3;
   },
 
   setLighting: function() {
@@ -60,7 +60,7 @@ World.prototype = {
   },
 
   setControls: function(){
-    this.controls.addEventListener( 'change', render );
+    // this.controls.addEventListener( 'change', render );
   },
 }
 
@@ -96,15 +96,7 @@ function cubePlacer (cubes, world){
   {
     world.setScene(cubes[i].mesh);
     world.render(cubes[i].mesh);
-    cubes[i].positionSelf( i, i ,i );
+    cubes[i].positionSelf( Math.random() *20, Math.random() *20, Math.random() *20);
   }
 }
 
-// Cube.prototype = {
-//   createCube: function() {
-//     console.log(this.geometry);
-//     console.log(this.material);
-//     var cube = new THREE.Mesh( this.geometry, this.material );
-//     return cube;
-//   }
-// }
