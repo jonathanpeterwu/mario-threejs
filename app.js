@@ -1,3 +1,135 @@
+var mario = {
+  cubeAttributes: [
+    {
+      color: "#614126",
+      position:
+              {
+                x:0,
+                y:0,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:1,
+                y:0,
+                z:0.01
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:2,
+                y:0,
+                z:0
+              }
+    },
+        {
+      color: "#614126",
+      position:
+              {
+                x:3,
+                y:0,
+                z:0.01
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:8,
+                y:0,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:9,
+                y:0,
+                z:0.01
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:10,
+                y:0,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:11,
+                y:0,
+                z:0.01
+              }
+    },
+
+    {
+      color: "#614126",
+      position:
+              {
+                x:1,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:2,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:3,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:8,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:9,
+                y:1,
+                z:0
+              }
+    },
+    {
+      color: "#614126",
+      position:
+              {
+                x:10,
+                y:1,
+                z:0
+              }
+    },
+  ]
+}
+
 window.addEventListener( 'load', initialize, false )
 
 function initialize() {
@@ -8,9 +140,8 @@ function initialize() {
 
   var marioFactory = new CubeFactory()
 
-  for (var i=0 ; i<10 ; i++)
-  {
-    marioFactory.createCube("red")
+  for ( var i=0; i<mario.cubeAttributes.length; i++ ){
+    marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
   }
 
   cubePlacer(marioFactory.cubes, world)
@@ -49,9 +180,11 @@ World.prototype = {
   },
 
   setLighting: function() {
-    var directionalLight = new THREE.DirectionalLight(0xFFFFFF);
-    directionalLight.position.set( 3,1,10 ).normalize();
-    this.scene.add( directionalLight );
+    var frontLight = new THREE.DirectionalLight( 0xFFFFFF );
+    frontLight.position.set( 3, 1, 10 ).normalize();
+    var ambientLight = new THREE.AmbientLight( 0x555555 );
+    this.scene.add( frontLight );
+    // this.scene.add( ambientLight );
   },
 
   setScene: function( mesh ) {
@@ -59,10 +192,13 @@ World.prototype = {
   }
 }
 
-function Cube( color ) {
-  this.geometry = new THREE.CubeGeometry(1,1,1);
+function Cube( color, position ) {
+  this.geometry = new THREE.CubeGeometry( 1, 1, 1 );
   this.material = new THREE.MeshLambertMaterial( {color: color} );
-  this.mesh = new THREE.Mesh(this.geometry, this.material)
+  this.mesh = new THREE.Mesh( this.geometry, this.material )
+  this.mesh.position.x = position.x
+  this.mesh.position.y = position.y
+  this.mesh.position.z = position.z
 }
 
 function CubeFactory() {
@@ -70,28 +206,17 @@ function CubeFactory() {
 }
 
 CubeFactory.prototype = {
-  createCube: function(color) {
-    var cube = new Cube(color);
-    this.cubes.push(cube);
+  createCube: function( color, position ){
+    var cube = new Cube( color, position );
+    this.cubes.push( cube );
     return cube
   }
 }
 
-Cube.prototype = {
-  positionSelf: function(x, y, z) {
-    //+1 makes it move by a lot, need to manage the camera.z attribute
-    this.mesh.position.x = x
-    this.mesh.position.y = y
-    this.mesh.position.z = z
-  }
-}
-
 function cubePlacer (cubes, world){
-  for (var i=0; i<cubes.length; i++)
-  {
+  for ( var i=0; i<cubes.length; i++ ){
     world.setScene(cubes[i].mesh);
     world.render(cubes[i].mesh);
-    cubes[i].positionSelf( Math.random() *10, Math.random() *10, Math.random() *10);
   }
 }
 
