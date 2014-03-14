@@ -1,132 +1,793 @@
 var mario = {
   cubeAttributes: [
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:0,
-                y:0,
-                z:0
-              }
-    },
+      x:0,
+      y:0,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:1,
-                y:0,
-                z:0.01
-              }
-    },
+      x:1,
+      y:0,
+      z:0.01
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:2,
-                y:0,
-                z:0
-              }
-    },
-        {
-      color: "#614126",
-      position:
-              {
-                x:3,
-                y:0,
-                z:0.01
-              }
-    },
+      x:2,
+      y:0,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:8,
-                y:0,
-                z:0
-              }
-    },
+      x:3,
+      y:0,
+      z:0.01
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:9,
-                y:0,
-                z:0.01
-              }
-    },
+      x:8,
+      y:0,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:10,
-                y:0,
-                z:0
-              }
-    },
+      x:9,
+      y:0,
+      z:0.01
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:11,
-                y:0,
-                z:0.01
-              }
-    },
+      x:10,
+      y:0,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
+    {
+      x:11,
+      y:0,
+      z:0.01
+    }
+  },
 
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:1,
-                y:1,
-                z:0
-              }
-    },
+      x:1,
+      y:1,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:2,
-                y:1,
-                z:0
-              }
-    },
+      x:2,
+      y:1,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:3,
-                y:1,
-                z:0
-              }
-    },
+      x:3,
+      y:1,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:8,
-                y:1,
-                z:0
-              }
-    },
+      x:8,
+      y:1,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:9,
-                y:1,
-                z:0
-              }
-    },
+      x:9,
+      y:1,
+      z:0
+    }
+  },
+  {
+    color: "#614126",
+    position:
     {
-      color: "#614126",
-      position:
-              {
-                x:10,
-                y:1,
-                z:0
-              }
-    },
+      x:10,
+      y:1,
+      z:0
+    }
+  },
+
+
+
+
+
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:2,
+      y:2,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:3,
+      y:2,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:4,
+      y:2,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:7,
+      y:2,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:8,
+      y:2,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:9,
+      y:2,
+      z:0
+    }
+  },
+
+
+
+
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:0,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:1,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:2,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:3,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:4,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:5,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:6,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:7,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:8,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:9,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:10,
+      y:3,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:11,
+      y:3,
+      z:0
+    }
+  },
+
+
+
+
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:0,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:1,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:2,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:3,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "yellow",
+    position:
+    {
+      x:4,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:5,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:6,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "yellow",
+    position:
+    {
+      x:7,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:8,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:9,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:10,
+      y:4,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:11,
+      y:4,
+      z:0
+    }
+  },
+
+
+
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:0,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:1,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:2,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:3,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:4,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:5,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:6,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:7,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:8,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:9,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:10,
+      y:5,
+      z:0
+    }
+  },
+  {
+    color: "#f4a460",
+    position:
+    {
+      x:11,
+      y:5,
+      z:0
+    }
+  },
+
+
+
+
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:0,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:1,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:2,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:3,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:4,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:5,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:6,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:7,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:8,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:9,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:10,
+      y:6,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:11,
+      y:6,
+      z:0
+    }
+  },
+
+
+
+
+
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:1,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:2,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:3,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:4,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:5,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:6,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:7,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:8,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:9,
+      y:7,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:10,
+      y:7,
+      z:0
+    }
+  },
+
+
+
+
+
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:2,
+      y:8,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:3,
+      y:8,
+      z:0
+    }
+  },
+  {
+    color: "#c0392b",
+    position:
+    {
+      x:4,
+      y:8,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:5,
+      y:8,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:6,
+      y:8,
+      z:0
+    }
+  },
+  {
+    color: "#0000CD",
+    position:
+    {
+      x:7,
+      y:8,
+      z:0
+    }
+  },
+
   ]
 }
 
