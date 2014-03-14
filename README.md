@@ -5,3 +5,4 @@
     * overalls: #c0392b
     * shirt: #0000CD
     * shoes: #614126
+    * hair: #5C3317
