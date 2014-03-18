@@ -14,7 +14,6 @@ function initialize() {
 
   cubePlacer(marioFactory.cubes, world)
 
-
 }
 
 
@@ -67,7 +66,6 @@ function Cube( color, position ) {
   this.mesh.position.x = position.x
   this.mesh.position.y = position.y
   this.mesh.position.z = position.z
-  THREE.GeometryUtils.merge(this.geometry, this.mesh);
 }
 
 function CubeFactory() {
@@ -82,12 +80,19 @@ CubeFactory.prototype = {
   }
 }
 
-function cubePlacer (cubes, world){
+function cubePlacer ( cubes, world ){
   for ( var i=0; i<cubes.length; i++ ){
-    world.setScene(cubes[i].mesh);
-    world.render(cubes[i].mesh);
+    world.setScene(cubes[ i ].mesh);
+    world.render(cubes[ i ].mesh);
   }
 }
+
+function marioShrinker ( geometry, scale ){
+  var scale = new THREE.Vector( 1,2,1 );
+  THREEx.GeometryUtils.scale( geometry, scale );
+}
+
+
 //geometry merging examples:
 // THREE.GeometryUtils.merge(geometry, otherGeometry);
 
