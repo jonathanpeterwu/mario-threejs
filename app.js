@@ -10,7 +10,7 @@ function initialize() {
 
   for ( var i=0; i<mario.cubeAttributes.length; i++ ){
     marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
-  }
+  };
 
   cubePlacer(marioFactory.cubes, world)
 
@@ -20,7 +20,7 @@ function initialize() {
 
 World = function(){
   this.scene = new THREE.Scene();
-  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 30 );
+  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 100 );
   this.renderer = new THREE.WebGLRenderer();
   this.controls = new THREE.OrbitControls( this.camera );
 }
@@ -42,7 +42,7 @@ World.prototype = {
   },
 
   setCameraPosition: function(){
-    this.camera.position.z = 25;
+    this.camera.position.z = 30;
     this.camera.position.x = 4;
     this.camera.position.y = 3;
   },
@@ -67,6 +67,7 @@ function Cube( color, position ) {
   this.mesh.position.x = position.x
   this.mesh.position.y = position.y
   this.mesh.position.z = position.z
+  THREE.GeometryUtils.merge(this.geometry, this.mesh);
 }
 
 function CubeFactory() {
@@ -87,4 +88,10 @@ function cubePlacer (cubes, world){
     world.render(cubes[i].mesh);
   }
 }
+//geometry merging examples:
+// THREE.GeometryUtils.merge(geometry, otherGeometry);
 
+// var mesh = new THREE.Mesh(new THREE.CubeGeometry(10,10,10), new THREE.MeshNormalMaterial());
+// mesh.position.x = 30;
+// mesh.rotation.y = Math.PI/3;
+// THREE.GeometryUtils.merge(geometry, mesh);
