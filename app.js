@@ -7,14 +7,27 @@ function initialize() {
   world.setLighting();
 
   var marioFactory = new CubeFactory()
+  var mergedMarioGeometry = new THREE.Geometry()
+  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry, new THREE.MeshFaceMaterial() );
 
   for ( var i=0; i<mario.cubeAttributes.length; i++ ){
     marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
   };
 
-  cubePlacer(marioFactory.cubes, world)
+  for ( var i=0; i<marioFactory.length; i++ ){
+    mergeMario( mergedMarioMesh, marioFactory.cubes[ i ] )
+  };
 
+  // cubePlacer( mergedMarioMesh, world );
+  world.setScene( mergedMarioMesh );
+  world.render( mergedMarioMesh );
 }
+
+
+function mergeMario(newMesh, unmergedCube){
+  THREE.GeometryUtils.merge(newMesh, unmergedCube)
+}
+
 
 
 World = function(){
@@ -82,21 +95,7 @@ CubeFactory.prototype = {
 
 function cubePlacer ( cubes, world ){
   for ( var i=0; i<cubes.length; i++ ){
-    world.setScene(cubes[ i ].mesh);
-    world.render(cubes[ i ].mesh);
+    world.setScene( cubes[ i ].mesh );
+    world.render( cubes[ i ].mesh );
   }
 }
-
-function marioShrinker ( geometry, scale ){
-  var scale = new THREE.Vector( 1,2,1 );
-  THREEx.GeometryUtils.scale( geometry, scale );
-}
-
-
-//geometry merging examples:
-// THREE.GeometryUtils.merge(geometry, otherGeometry);
-
-// var mesh = new THREE.Mesh(new THREE.CubeGeometry(10,10,10), new THREE.MeshNormalMaterial());
-// mesh.position.x = 30;
-// mesh.rotation.y = Math.PI/3;
-// THREE.GeometryUtils.merge(geometry, mesh);
