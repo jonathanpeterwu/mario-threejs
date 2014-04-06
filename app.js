@@ -14,18 +14,19 @@ function initialize() {
     marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
   };
 
-  for ( var i=0; i<marioFactory.length; i++ ){
-    mergeMario( mergedMarioMesh, marioFactory.cubes[ i ] )
+  for ( var i=0; i<marioFactory.cubes.length; i++ ){
+    mergeMario( mergedMarioMesh, marioFactory.cubes[ i ].geometry )
   };
 
-  // cubePlacer( mergedMarioMesh, world );
+  cubePlacer( mergedMarioMesh, world );
   world.setScene( mergedMarioMesh );
   world.render( mergedMarioMesh );
 }
 
 
 function mergeMario(newMesh, unmergedCube){
-  THREE.GeometryUtils.merge(newMesh, unmergedCube)
+  console.log('mergedmariomesh', newMesh, 'unmerged', unmergedCube )
+  THREE.GeometryUtils.merge(unmergedCube, newMesh)
 }
 
 
