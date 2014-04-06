@@ -1,4 +1,4 @@
-window.addEventListener( 'load', initialize, false )
+window.addEventListener('load', initialize);
 
 function initialize() {
   var world = new World()
@@ -8,29 +8,26 @@ function initialize() {
 
   var marioFactory = new CubeFactory()
   var mergedMarioGeometry = new THREE.Geometry()
-  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry, new THREE.MeshFaceMaterial() );
 
-  for ( var i=0; i<mario.cubeAttributes.length; i++ ){
+  // creates Cube objects from our mario JSON
+  for ( var i = 0; i < mario.cubeAttributes.length; i++ ){
     marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
   };
 
-  for ( var i=0; i<marioFactory.cubes.length; i++ ){
-    mergeMario( mergedMarioMesh, marioFactory.cubes[ i ].geometry )
+  // merge each Cube's mesh into the mergedMarioGeometry.
+  // we need to figure out a way to also apply the correct material (read: color) at this step
+  for ( var i = 0; i < marioFactory.cubes.length; i++ ){
+    THREE.GeometryUtils.merge( mergedMarioGeometry, marioFactory.cubes[ i ].mesh )
   };
 
-  cubePlacer( mergedMarioMesh, world );
+  // merge the merged geometry into a mesh so that we can insert it into the
+  // scene
+  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry, new
+  THREE.MeshBasicMaterial({ color: 0x00ff00 }) );
+
   world.setScene( mergedMarioMesh );
   world.render( mergedMarioMesh );
 }
-
-
-function mergeMario(newMesh, unmergedCube){
-  console.log('mergedmariomesh', newMesh, 'unmerged', unmergedCube )
-  THREE.GeometryUtils.merge(unmergedCube, newMesh)
-}
-
-
-
 World = function(){
   this.scene = new THREE.Scene();
   this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 100 );
@@ -50,7 +47,6 @@ World.prototype = {
      self.render( mesh )
    });
 
-    // mesh.rotation.x += 0.01;
     this.renderer.render( this.scene, this.camera );
   },
 
@@ -91,12 +87,5 @@ CubeFactory.prototype = {
     var cube = new Cube( color, position );
     this.cubes.push( cube );
     return cube
-  }
-}
-
-function cubePlacer ( cubes, world ){
-  for ( var i=0; i<cubes.length; i++ ){
-    world.setScene( cubes[ i ].mesh );
-    world.render( cubes[ i ].mesh );
   }
 }
