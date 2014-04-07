@@ -11,20 +11,22 @@ function initialize() {
 
   // creates Cube objects from our mario JSON
   for ( var i = 0; i < mario.cubeAttributes.length; i++ ){
-    marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
-  };
+    marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position, mario.cubeAttributes[ i ].color)
+}
 
   // merge each Cube's mesh into the mergedMarioGeometry.
   // we need to figure out a way to also apply the correct material (read: color) at this step
   for ( var i = 0; i < marioFactory.cubes.length; i++ ){
-    THREE.GeometryUtils.merge( mergedMarioGeometry, marioFactory.cubes[ i ].mesh )
+    THREE.GeometryUtils.merge( mergedMarioGeometry, marioFactory.cubes[ i ].mesh)
   };
 
   // merge the merged geometry into a mesh so that we can insert it into the
   // scene
-  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry, new
-  THREE.MeshBasicMaterial({ color: 0x00ff00 }) );
+  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry)
+  //, new
+  //THREE.MeshBasicMaterial({ color: 0x00ff00 }) );
 
+  console.log(mergedMarioMesh)
   world.setScene( mergedMarioMesh );
   world.render( mergedMarioMesh );
 }
