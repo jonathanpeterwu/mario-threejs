@@ -9,37 +9,37 @@ function initialize() {
 
   // geometry,mesh,material init
   var geometry = new THREE.CubeGeometry( 1, 1, 1 )
-  var material = new THREE.MeshLambertMaterial()
   var mergedMarioGeometry = new THREE.Geometry()
   var cubes = []
   var materials = []
 
   // creates Cube objects from our mario JSON
-  for ( var i = 0; i < mario.cubeAttributes.length; i++ ){
-    cubes.push ( new Cube( geometry, mario.cubeAttributes[ i ].position, material, mario.cubeAttributes[ i ].color ) )
+  for ( var i = 0, len = mario.cubeAttributes.length; i < len; i++ ){
+    cubes.push ( new Cube( geometry, mario.cubeAttributes[ i ].position, mario.cubeAttributes[ i ].color ) )
   }
 
   // merge each Cube's mesh into the mergedMarioGeometry.
-  for ( var i = 0; i < cubes.length; i++ ){
+  for ( var i = 0 , len = cubes.length; i < len; i++ ){
     materials.push ( new THREE.MeshLambertMaterial({ color: cubes[ i ].color }) )
     THREE.GeometryUtils.setMaterialIndex(cubes[ i ].mesh.geometry, i )
     THREE.GeometryUtils.merge( mergedMarioGeometry, cubes[ i ].mesh )
   }
 
+  // merge materials array into final mesh
   var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry ,new THREE.MeshFaceMaterial( materials ) )
   world.setScene( mergedMarioMesh )
   world.render( mergedMarioMesh )
 }
 
-function Cube( geometry, position, material, color ) {
+function Cube( geometry, position, color ) {
   this.color = new THREE.Color( color )
-  this.mesh = new THREE.Mesh( geometry, material )
+  this.mesh = new THREE.Mesh( geometry )
   this.mesh.position.x = position.x
   this.mesh.position.y = position.y
   this.mesh.position.z = position.z
 }
 
-World = function(){
+function World(){
   this.scene = new THREE.Scene();
   this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 100 );
   this.renderer = new THREE.WebGLRenderer();
@@ -72,7 +72,6 @@ World.prototype = {
     frontLight.position.set( 3, 1, 10 ).normalize();
     var ambientLight = new THREE.AmbientLight( 0x555555 );
     this.scene.add( frontLight );
-    // this.scene.add( ambientLight );
   },
 
   setScene: function( mesh ) {
