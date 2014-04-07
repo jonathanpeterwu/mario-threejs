@@ -10,23 +10,18 @@ function initialize() {
   // geometry,mesh,material init
   var geometry = new THREE.CubeGeometry( 1, 1, 1 )
   var mergedMarioGeometry = new THREE.Geometry()
-  var cubes = []
-  var materials = []
+  var cubeMario = new CubeCreature()
 
   // creates Cube objects from our mario JSON
   for ( var i = 0, len = mario.cubeAttributes.length; i < len; i++ ){
-    cubes.push ( new Cube( geometry, mario.cubeAttributes[ i ].position, mario.cubeAttributes[ i ].color ) )
+    cubeMario.cubes.push ( new Cube( geometry, mario.cubeAttributes[ i ].position, mario.cubeAttributes[ i ].color ) )
   }
 
   // merge each Cube's mesh into the mergedMarioGeometry.
-  for ( var i = 0 , len = cubes.length; i < len; i++ ){
-    materials.push ( new THREE.MeshLambertMaterial({ color: cubes[ i ].color }) )
-    THREE.GeometryUtils.setMaterialIndex(cubes[ i ].mesh.geometry, i )
-    THREE.GeometryUtils.merge( mergedMarioGeometry, cubes[ i ].mesh )
-  }
+  cubeMario.mergeCubes(mergedMarioGeometry)
 
-  // merge materials array into final mesh
-  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry ,new THREE.MeshFaceMaterial( materials ) )
+  // merge cubeMario.materials array into final mesh
+  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry, new THREE.MeshFaceMaterial( cubeMario.materials ) )
   world.setScene( mergedMarioMesh )
   world.render( mergedMarioMesh )
 }
@@ -37,6 +32,22 @@ function Cube( geometry, position, color ) {
   this.mesh.position.x = position.x
   this.mesh.position.y = position.y
   this.mesh.position.z = position.z
+}
+
+function CubeCreature(){
+  this.cubes = []
+  this.materials = []
+}
+
+CubeCreature.prototype = {
+  mergeCubes: function( geometryToMerge ){
+    for ( var i=0, len = this.cubes.length; i < len; i++ ){
+      this.materials.push ( new THREE.MeshLambertMaterial({ color: this.cubes[ i ].color }) )
+      THREE.GeometryUtils.setMaterialIndex(this.cubes[ i ].mesh.geometry, i )
+      THREE.GeometryUtils.merge( geometryToMerge, this.cubes[ i ].mesh )
+    }
+
+  }
 }
 
 function World(){
@@ -69,9 +80,11 @@ World.prototype = {
 
   setLighting: function() {
     var frontLight = new THREE.DirectionalLight( 0xFFFFFF );
+    var backLight = new THREE.DirectionalLight( 0xFFFA99 );
     frontLight.position.set( 3, 1, 10 ).normalize();
-    var ambientLight = new THREE.AmbientLight( 0x555555 );
+    backLight.position.set( 1, 2, -10 );
     this.scene.add( frontLight );
+    this.scene.add( backLight );
   },
 
   setScene: function( mesh ) {
