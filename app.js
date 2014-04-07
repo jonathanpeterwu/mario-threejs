@@ -12,20 +12,21 @@ function initialize() {
   var material = new THREE.MeshLambertMaterial()
   var mergedMarioGeometry = new THREE.Geometry()
   var cubes = []
+  var materials = []
 
   // creates Cube objects from our mario JSON
   for ( var i = 0; i < mario.cubeAttributes.length; i++ ){
     cubes.push ( new Cube( geometry, mario.cubeAttributes[ i ].position, material, mario.cubeAttributes[ i ].color ) )
   }
-  console.log ( cubes )
+
   // merge each Cube's mesh into the mergedMarioGeometry.
-  // we need to figure out a way to also apply the correct material (read: color) at this step
   for ( var i = 0; i < cubes.length; i++ ){
+    materials.push ( new THREE.MeshLambertMaterial({ color: cubes[ i ].color }) )
+    THREE.GeometryUtils.setMaterialIndex(cubes[ i ].mesh.geometry, i )
     THREE.GeometryUtils.merge( mergedMarioGeometry, cubes[ i ].mesh )
   }
 
-  console.log ( mergedMarioGeometry )
-  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry ,new THREE.MeshLambertMaterial( {color: "#000"}) )
+  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry ,new THREE.MeshFaceMaterial( materials ) )
   world.setScene( mergedMarioMesh )
   world.render( mergedMarioMesh )
 }
