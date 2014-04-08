@@ -1,26 +1,58 @@
-window.addEventListener( 'load', initialize, false )
+window.addEventListener('load', initialize)
 
 function initialize() {
+  // world init
   var world = new World()
-  world.setRender();
-  world.setCameraPosition();
-  world.setLighting();
+  world.setRender()
+  world.setCameraPosition()
+  world.setLighting()
 
-  var marioFactory = new CubeFactory()
+  // geometry,mesh,material init
+  var geometry = new THREE.CubeGeometry( 1, 1, 1 )
+  var mergedMarioGeometry = new THREE.Geometry()
+  var cubeMario = new CubeCreature()
 
-  for ( var i=0; i<mario.cubeAttributes.length; i++ ){
-    marioFactory.createCube( mario.cubeAttributes[ i ].color, mario.cubeAttributes[ i ].position )
+  // creates Cube objects from our mario JSON
+  for ( var i = 0, len = mario.cubeAttributes.length; i < len; i++ ){
+    cubeMario.cubes.push ( new Cube( geometry, mario.cubeAttributes[ i ].position, mario.cubeAttributes[ i ].color ) )
   }
 
-  cubePlacer(marioFactory.cubes, world)
+  // merge each Cube's mesh into the mergedMarioGeometry.
+  cubeMario.mergeCubes(mergedMarioGeometry)
 
-
+  // merge cubeMario.materials array into final mesh
+  var mergedMarioMesh = new THREE.Mesh( mergedMarioGeometry, new THREE.MeshFaceMaterial( cubeMario.materials ) )
+  world.setScene( mergedMarioMesh )
+  world.render( mergedMarioMesh )
 }
 
+function Cube( geometry, position, color ) {
+  this.color = new THREE.Color( color )
+  this.mesh = new THREE.Mesh( geometry )
+  this.mesh.position.x = position.x
+  this.mesh.position.y = position.y
+  this.mesh.position.z = position.z
+}
 
-World = function(){
+function CubeCreature(){
+  this.cubes = []
+  this.materials = []
+}
+
+CubeCreature.prototype = {
+  mergeCubes: function( geometryToMerge ){
+    for ( var i=0, len = this.cubes.length; i < len; i++ ){
+      this.materials.push ( new THREE.MeshLambertMaterial({ color: this.cubes[ i ].color }) )
+      THREE.GeometryUtils.setMaterialIndex(this.cubes[ i ].mesh.geometry, i )
+      THREE.GeometryUtils.merge( geometryToMerge, this.cubes[ i ].mesh )
+    }
+
+  }
+}
+
+function World(){
   this.scene = new THREE.Scene();
-  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 30 );
+  this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, .1, 100 );
   this.renderer = new THREE.WebGLRenderer();
   this.controls = new THREE.OrbitControls( this.camera );
 }
@@ -37,54 +69,25 @@ World.prototype = {
      self.render( mesh )
    });
 
-    // mesh.rotation.x += 0.01;
     this.renderer.render( this.scene, this.camera );
   },
 
   setCameraPosition: function(){
-    this.camera.position.z = 25;
+    this.camera.position.z = 30;
     this.camera.position.x = 4;
     this.camera.position.y = 3;
   },
 
   setLighting: function() {
     var frontLight = new THREE.DirectionalLight( 0xFFFFFF );
+    var backLight = new THREE.DirectionalLight( 0xFFFA99 );
     frontLight.position.set( 3, 1, 10 ).normalize();
-    var ambientLight = new THREE.AmbientLight( 0x555555 );
+    backLight.position.set( 1, 2, -10 );
     this.scene.add( frontLight );
-    // this.scene.add( ambientLight );
+    this.scene.add( backLight );
   },
 
   setScene: function( mesh ) {
     this.scene.add( mesh );
   }
 }
-
-function Cube( color, position ) {
-  this.geometry = new THREE.CubeGeometry( 1, 1, 1 );
-  this.material = new THREE.MeshLambertMaterial( {color: color} );
-  this.mesh = new THREE.Mesh( this.geometry, this.material )
-  this.mesh.position.x = position.x
-  this.mesh.position.y = position.y
-  this.mesh.position.z = position.z
-}
-
-function CubeFactory() {
-  this.cubes = [];
-}
-
-CubeFactory.prototype = {
-  createCube: function( color, position ){
-    var cube = new Cube( color, position );
-    this.cubes.push( cube );
-    return cube
-  }
-}
-
-function cubePlacer (cubes, world){
-  for ( var i=0; i<cubes.length; i++ ){
-    world.setScene(cubes[i].mesh);
-    world.render(cubes[i].mesh);
-  }
-}
-
